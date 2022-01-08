@@ -3,7 +3,7 @@ import streamlit as st
 import altair as alt
 
 st.write("""
-#DNA Nucleotide Count Web App
+# DNA Nucleotide Count Web App
 
 This app counts the nucleotide composition of query DNA!
 
@@ -12,7 +12,7 @@ This app counts the nucleotide composition of query DNA!
 
 st.header('Enter DNA Sequence')
 
-sequence_input =">DNA Query \nctgccactagccggcgtccttaagggtacccgctcgcatttgctcacatctctgtatgtatcgttcgcgcacggtacgctgttcgccagtgtccgagaaa"
+sequence_input =">DNA Query \nCCCTATGACCCTGGCAAAGCGGGTGGAATACTGGCAAAGATCATCAAATCCGCTAACAGTATAGAATTGATACGAAACCAGATTAACGATGCTAAAAGAT"
 
 sequence = st.text_area("Sequence input",sequence_input, height=250)
 sequence = sequence.splitlines()
@@ -35,15 +35,10 @@ st.subheader('1. Print Dictionary')
 def DNA_nucleotide_count(seq):
     d= dict([
         ('A',seq.count('A')),
-        ('a',seq.count('A')),
         ('T',seq.count('T')),
-        ('t',seq.count('T')),        
         ('G',seq.count('G')),
-       ('g',seq.count('T')),
-        ('C',seq.count('C')),
-        ('c',seq.count('T')),
-
-    ])
+        ('C',seq.count('C'))
+        ])
     return d
 X = DNA_nucleotide_count(sequence)
 X
@@ -56,7 +51,7 @@ st.write('There are '+str(X['C'])+' adenine (C)')
 
 #Display Dataframe
 st.subheader('3. Display Dataframe')
-df = pd.Dataframe.from_dict(X,orient='index')
+df = pd.DataFrame.from_dict(X,orient='index')
 df = df.rename({0:'count'},axis='columns')
 df.reset_index(inplace=True)
 df = df.rename(columns = {'index':'nucleotide'})
