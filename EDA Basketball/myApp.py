@@ -24,3 +24,11 @@ def load_data(year):
     playerstats = raw.drop(['Rk'], axis=1)
     return playerstats
 playerstats = load_data(selected_year)
+
+#Sidebar - Position Selection
+sorted_unique_team =sorted(playerstats.Tm.unique())
+selected_team = st.sidebar.multiselect('Team', sorted_unique_team)
+
+#Sidebar - Position Selection
+unique_pos = ['C','PF','SF','PG','SG']
+selected_pos = st.sidebar.multiselect('Position', unique_pos)
