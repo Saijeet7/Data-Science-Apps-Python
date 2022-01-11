@@ -13,10 +13,10 @@ This app predict the Iris flower type!
 st.sidebar.header('User Input Parameters')
 
 def user_input_features():
-    sepal_length = st.sidebar.slider('Sepal_length',4.3,7.9,5.5)
-    sepal_width = st.sidebar.slider('Sepal_width',2.0,4.4,3.5)
-    petal_length = st.sidebar.slider('Petal_length',1.0,6.9,1.5)
-    petal_width = st.sidebar.slider('Petal_width',0.1,2.5,0.7)
+    sepal_length = st.sidebar.slider('Sepal Length',4.3,7.9,5.5)
+    sepal_width = st.sidebar.slider('Sepal Width',2.0,4.4,3.5)
+    petal_length = st.sidebar.slider('Petal Length',1.0,6.9,1.5)
+    petal_width = st.sidebar.slider('Petal Width',0.1,2.5,0.7)
     data = {'sepal_length': sepal_length,
             'sepal_width': sepal_width,
             'petal_length': petal_length,
@@ -39,3 +39,11 @@ clf.fit(X, Y)
 predictions = clf.predict(df)
 prediction_proba = clf.predict_proba(df)
 
+st.subheader('Class labels and their corresponding index number')
+st.write(iris.target_names)
+
+st.subheader('Prediction')
+st.write(iris.target_names[predictions])
+
+st.subheader('Predicition Proability')
+st.write(prediction_proba)
