@@ -142,3 +142,12 @@ col2.write('Data Dimension: ' + str(df_selected_coin.shape[0]) + ' rows and ' + 
 
 col2.dataframe(df_coins)
 
+#DOwnload Csv Data
+def filedownload(df):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="crypto.csv">Download CSV File</a>'
+    return href
+col2.markdown(filedownload(df_selected_coin),unsafe_allow_html=True)    
+
+
