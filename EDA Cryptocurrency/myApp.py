@@ -33,7 +33,7 @@ col1.header('Input Options')
 currency_price_unit = col1.selectbox('Select currency for price',('USD','BTC','ETH'))
 
 #Web scrapping Coin market cap data
-
+@st.cache
 def load_data():
     cmc = requests.get("https://coinmarketcap.com")
     soup = BeautifulSoup(cmc.content, "html.parser")
@@ -118,3 +118,27 @@ def load_data():
 
 
 df = load_data()
+
+##Sidebar - Cryptocurrency selections
+sorted_coin = sorted(df['coin_symbol'])
+selected_coin = col1.multiselect('Cryptocurrency',sorted_coin,sorted_coin)
+#Filtering data
+df_selected_coin = df[(df['coin_symbol'].isin(selected_coin))]
+
+##Sidebar - Number of coins to Display
+num_coin = col1.slider('Display Top N Coins',1,100,100)
+df_coins = df_selected_coin[:num_coin]
+
+##Sidebar = Percent change timeframe
+percent_timeframe = col1.selectbox('Percent change time frame',
+                                    ['7d','24h', '1h'])
+percent_dict = {"7d":'percent_change_7d',"24h":'percent_change_24h',"1h":'percent_change_1h'}
+selected_percent_timeframe = percent_dict[percent_timeframe]
+
+##Siderbar - Sorting values
+sort_values = col1.selectbox('Sort values',['Yes','No'])
+col2.subheader('Price data of Selected Cryptocurrency')
+col2.write('Data Dimension: ' + str(df_selected_coin.shape[0]) + ' rows and ' + str(df_selected_coin.shape[1]) + ' columns.')
+
+col2.dataframe(df_coins)
+
