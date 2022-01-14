@@ -1,5 +1,5 @@
 import pandas as pd
-penguins = pd.read_csv("penguins_cleaned.csv")
+penguins = pd.read_csv('penguins_cleaned.csv')
 
 df = penguins.copy()
 target="species"
@@ -10,7 +10,7 @@ for col in encode:
     df = pd.concat([df,dummy],axis=1)
     del df[col]
 
-target_mapper = {'Adelie':0, 'Chinstrap':1, 'Genotoo':2}
+target_mapper = {'Adelie':0, 'Chinstrap':1, 'Gentoo':2}
 def target_encode(val):
     return target_mapper[val]
 
